@@ -1,9 +1,10 @@
-import { createServer } from "./server";
-import { log } from "@repo/logger";
+import {createApolloServer} from "./server"
 
-const port = process.env.PORT || 3001;
-const server = createServer();
+async function main() {
+  const app = await createApolloServer();
+  app.listen(3001, () => {
+    console.log("Server is running on http://localhost:3001/graphql");
+  });
+}
 
-server.listen(port, () => {
-  log(`api running on ${port}`);
-});
+main();

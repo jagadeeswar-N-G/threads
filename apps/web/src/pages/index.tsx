@@ -14,6 +14,7 @@ import { CiCircleMore } from "react-icons/ci";
 import Link from "next/link";
 import { Button } from "@/src/components/ui/button";
 import { FeedCard } from "@/src/components/FeedCard";
+import LoginCard from "@/src/components/LoginCard";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -115,10 +116,12 @@ export default function Home() {
         <div className="col-span-6 border-x-2 border-x-[0.2xp] border-x-white flex justify-center">
           <section className="h-fit">
             {" "}
-            <FeedCard />
+            <FeedCard  className="m-6"/>
           </section>
         </div>
-        <div className="col-span-3"></div>
+        <div className="col-span-3">
+          <LoginCard/>
+        </div>
       </div>
     </div>
   );

@@ -1,7 +1,8 @@
 import axios from "axios"
 import { prisma } from "../db";
+import JwtService from "../services/jwt";
 
-interface GoogleUserPayload {
+export interface GoogleUserPayload {
     iss?: string; // Issuer
     azp?: string; // Authorized party
     aud?: string; // Audience
@@ -44,7 +45,12 @@ const queries = {
             }
          })
       }
-       
+      const userDB = await prisma.user.findUnique({
+        where: {email: data.email}
+      })
+      if(!userDB) return null
+      const JWTtoken = await JwtService.generateTokenForUser(userDB)
+      return JWTtoken
     }
 }
 export const resolvers = {queries}

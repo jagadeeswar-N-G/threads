@@ -1,14 +1,14 @@
 import { prisma } from "../db";
 import JWT from "jsonwebtoken";
+import { GoogleUserPayload } from "../users/resolvers";
 
 const JWT_SECRET = process.env.JWT_SECRET || "secret";
 
-
 class JwtService {
-    public static async generateTokenForUser(userId: number){
+    public static async generateTokenForUser(UserDB:any) {
         const user = await prisma.user.findUnique({
             where: {
-                id: userId
+                id: UserDB.id
             }
         })
         const payload = {
@@ -19,3 +19,5 @@ class JwtService {
         return token
     }   
 }
+
+export default JwtService

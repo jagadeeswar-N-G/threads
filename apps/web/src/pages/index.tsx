@@ -17,6 +17,7 @@ import { FeedCard } from "@/src/components/FeedCard";
 import LoginCard from "@/src/components/LoginCard";
 import { useCurrentUser } from "@/src/hooks/user";
 import SidebarProfile from "@/src/components/SidebarProfile";
+import TwitterInputCard from "@/src/components/TwitterInputCard";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -121,6 +122,7 @@ export default function Home() {
         <div className="col-span-6 border-x-2 border-x-[0.2xp] border-x-white flex justify-center">
           <section className="h-fit">
             {" "}
+            <TwitterInputCard/>
             <FeedCard className="m-6" />
           </section>
         </div>

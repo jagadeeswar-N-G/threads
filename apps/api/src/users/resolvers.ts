@@ -23,7 +23,7 @@ export interface GoogleUserPayload {
   }
   
 const queries = {
-    vefifyGoogleToken: async(_:any, {token}:{token:string}) => {
+    verifyGoogleToken: async(_:any, {token}:{token:string}) => {
         const googleToken = token;
        const googleOauthURl = new URL('https://oauth2.googleapis.com/tokeninfo')
        googleOauthURl.searchParams.set('id_token', googleToken)

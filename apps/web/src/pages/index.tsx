@@ -16,7 +16,6 @@ import { Button } from "@/src/components/ui/button";
 import { FeedCard } from "@/src/components/FeedCard";
 import LoginCard from "@/src/components/LoginCard";
 
-
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -92,11 +91,7 @@ const threadsSidebarButtons: ThreadsSidebarButtons[] = [
   },
 ];
 
-
-
 export default function Home() {
-
- 
   return (
     <div
       className={`${geistSans.variable} ${geistMono.variable} font-[family-name:var(--font-geist-sans)]`}
@@ -121,11 +116,11 @@ export default function Home() {
         <div className="col-span-6 border-x-2 border-x-[0.2xp] border-x-white flex justify-center">
           <section className="h-fit">
             {" "}
-            <FeedCard  className="m-6"/>
+            <FeedCard className="m-6" />
           </section>
         </div>
         <div className="col-span-3">
-          <LoginCard/>
+          <LoginCard />
         </div>
       </div>
     </div>

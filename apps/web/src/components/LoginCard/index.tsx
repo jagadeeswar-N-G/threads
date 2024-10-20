@@ -11,8 +11,11 @@ import { useCallback } from "react";
 import { toast } from "@/src/hooks/use-toast";
 import { graphQLClient } from "@/src/clients/api";
 import { verifyGoogleToken } from "@/src/graphql/query/user";
+import { useCurrentUser } from "@/src/hooks/user";
 
 export default function LoginCard() {
+  const { user } = useCurrentUser();
+
   const handleLoginWithGoogle = useCallback(
     async (credential: CredentialResponse) => {
       const token = credential.credential;
@@ -25,25 +28,43 @@ export default function LoginCard() {
         });
         return;
       }
-      const verifiedGoogleToken: any = await graphQLClient.request(
-        verifyGoogleToken,
-        { token: token }
-      );
-      toast({
-        title: "Login with Google",
-        description: "You are logged in with Google",
-        className: "text-white",
-      });
-      console.log(verifiedGoogleToken);
 
-      if (verifiedGoogleToken.vefifyGoogleToken)
-        window.localStorage.setItem(
-          "_threads_token",
-          verifiedGoogleToken.vefifyGoogleToken
-        );
+      let verifiedGoogleToken: any; // Declare outside of try block
+
+      try {
+        verifiedGoogleToken = await graphQLClient.request(verifyGoogleToken, {
+          token,
+        });
+
+        // Handle the response
+        if (verifiedGoogleToken.verifyGoogleToken) {
+          // Fixed the typo here
+          window.localStorage.setItem(
+            "_threads_token",
+            verifiedGoogleToken.verifyGoogleToken // Ensure this matches the response structure
+          );
+
+          toast({
+            title: "Login with Google",
+            description: "You are logged in with Google",
+            className: "text-white",
+          });
+        } else {
+          throw new Error("Invalid token response");
+        }
+      } catch (error) {
+        console.error("Error verifying Google token:", error);
+        toast({
+          title: "Error",
+          description: "Failed to verify Google token",
+          variant: "destructive",
+          className: "text-white",
+        });
+      }
     },
     []
   );
+
   return (
     <Card className="w-[350px] m-6">
       <CardHeader>

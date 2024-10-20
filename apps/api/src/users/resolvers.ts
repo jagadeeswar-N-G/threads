@@ -23,36 +23,54 @@ export interface GoogleUserPayload {
   }
   
 const queries = {
-    verifyGoogleToken: async(_:any, {token}:{token:string}) => {
-        const googleToken = token;
-       const googleOauthURl = new URL('https://oauth2.googleapis.com/tokeninfo')
-       googleOauthURl.searchParams.set('id_token', googleToken)
-
-       const {data} = await axios.get<GoogleUserPayload>(googleOauthURl.toString(), {
-        responseType: 'json'
-       })
-
+  verifyGoogleToken: async (
+    _: any,
+    { token }: { token: string }
+  ) => {
+    try {
+      const googleToken = token;
+      const googleOauthURL = new URL('https://oauth2.googleapis.com/tokeninfo');
+      googleOauthURL.searchParams.set('id_token', googleToken);
+  
+      // Fetch user data from Google
+      const { data } = await axios.get(googleOauthURL.toString(), {
+        responseType: 'json',
+      });
+  
+      // Check if the user already exists in the database
       const user = await prisma.user.findUnique({
-        where: {email: data.email}
-      })
-
-      if(!user){
-         await prisma.user.create({
-            data: {
-                email: data.email,
-                firstName: data.given_name,
-                lastName: data.name,
-                profileImageURL: data.picture
-            }
-         })
+        where: { email: data.email },
+      });
+  
+      // If the user does not exist, create a new user
+      if (!user) {
+        await prisma.user.create({
+          data: {
+            email: data.email,
+            firstName: data.given_name,
+            lastName: data.name,
+            profileImageURL: data.picture,
+          },
+        });
       }
+  
+      // Retrieve the user from the database (either existing or newly created)
       const userDB = await prisma.user.findUnique({
-        where: {email: data.email}
-      })
-      if(!userDB) return null
-      const JWTtoken = await JwtService.generateTokenForUser(userDB)
-      return JWTtoken
-    },
+        where: { email: data.email },
+      });
+  
+      if (!userDB) {
+        throw new Error("User not found after creation.");
+      }
+  
+      const JWTtoken = await JwtService.generateTokenForUser(userDB);
+      return JWTtoken;
+    } catch (error) {
+      console.error("Error in verifyGoogleToken:", error);
+      // Optionally, you can throw a custom error or return null
+      throw new Error("Failed to verify Google token");
+    }
+  },
     getCurrentUser: async(_: any, __:any, context: GraphqlContext) => {
         if(!context.user){
             throw new Error('Not authenticated')

@@ -15,6 +15,8 @@ import Link from "next/link";
 import { Button } from "@/src/components/ui/button";
 import { FeedCard } from "@/src/components/FeedCard";
 import LoginCard from "@/src/components/LoginCard";
+import { useCurrentUser } from "@/src/hooks/user";
+import SidebarProfile from "@/src/components/SidebarProfile";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -92,6 +94,8 @@ const threadsSidebarButtons: ThreadsSidebarButtons[] = [
 ];
 
 export default function Home() {
+  const { user } = useCurrentUser();
+
   return (
     <div
       className={`${geistSans.variable} ${geistMono.variable} font-[family-name:var(--font-geist-sans)]`}
@@ -112,6 +116,7 @@ export default function Home() {
           <section>
             <Button className="bg-blue-500">Tweet</Button>
           </section>
+          {!user && <SidebarProfile/>}
         </div>
         <div className="col-span-6 border-x-2 border-x-[0.2xp] border-x-white flex justify-center">
           <section className="h-fit">
@@ -120,7 +125,7 @@ export default function Home() {
           </section>
         </div>
         <div className="col-span-3">
-          <LoginCard />
+          {!user && <LoginCard />}
         </div>
       </div>
     </div>

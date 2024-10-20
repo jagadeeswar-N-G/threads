@@ -19,10 +19,11 @@ class JwtService {
         return token
     }  
     public static async verifyToken(token: string) {
-        if (!token) {
-            throw new JsonWebTokenError('jwt must be provided');
+        try {
+            return JWT.verify(token, JWT_SECRET) as JWTUser
+        } catch (error) {
+            throw new JsonWebTokenError("Invalid token")
         }
-        return JWT.verify(token, JWT_SECRET) as JWTUser;
     }
     
 }

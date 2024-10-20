@@ -11,11 +11,10 @@ import { useCallback } from "react";
 import { toast } from "@/src/hooks/use-toast";
 import { graphQLClient } from "@/src/clients/api";
 import { verifyGoogleToken } from "@/src/graphql/query/user";
-import { useCurrentUser } from "@/src/hooks/user";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function LoginCard() {
-  const { user } = useCurrentUser();
-
+  const queryClient = useQueryClient();
   const handleLoginWithGoogle = useCallback(
     async (credential: CredentialResponse) => {
       const token = credential.credential;
@@ -43,7 +42,7 @@ export default function LoginCard() {
             "_threads_token",
             verifiedGoogleToken.verifyGoogleToken // Ensure this matches the response structure
           );
-
+          queryClient.invalidateQueries({ queryKey: ["currentUser"] });
           toast({
             title: "Login with Google",
             description: "You are logged in with Google",

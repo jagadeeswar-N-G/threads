@@ -1,6 +1,6 @@
 import { prisma } from "../db";
-import JWT from "jsonwebtoken";
-import { GoogleUserPayload } from "../users/resolvers";
+import JWT, { JsonWebTokenError } from "jsonwebtoken";
+import { JWTUser } from "../types/interfaces";
 
 const JWT_SECRET = process.env.JWT_SECRET || "secret";
 
@@ -11,13 +11,20 @@ class JwtService {
                 id: UserDB.id
             }
         })
-        const payload = {
+        const payload: JWTUser = {
             id: user?.id,
             email: user?.email
         }
         const token = JWT.sign(payload, JWT_SECRET)
         return token
-    }   
+    }  
+    public static async verifyToken(token: string) {
+        if (!token) {
+            throw new JsonWebTokenError('jwt must be provided');
+        }
+        return JWT.verify(token, JWT_SECRET) as JWTUser;
+    }
+    
 }
 
 export default JwtService

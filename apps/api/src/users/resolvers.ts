@@ -1,6 +1,7 @@
-import axios from "axios"
+import axios, { get } from "axios"
 import { prisma } from "../db";
 import JwtService from "../services/jwt";
+import { GraphqlContext } from "../types/interfaces";
 
 export interface GoogleUserPayload {
     iss?: string; // Issuer
@@ -51,6 +52,15 @@ const queries = {
       if(!userDB) return null
       const JWTtoken = await JwtService.generateTokenForUser(userDB)
       return JWTtoken
+    },
+    getCurrentUser: async(_: any, __:any, context: GraphqlContext) => {
+        if(!context.user){
+            throw new Error('Not authenticated')
+        }
+        const user = await prisma.user.findUnique({
+            where: { id: context.user?.id }
+        })
+        return user
     }
 }
 export const resolvers = {queries}

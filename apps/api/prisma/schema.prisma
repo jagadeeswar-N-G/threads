@@ -14,11 +14,23 @@ datasource db {
 }
 
 model User {
-  id        Int       @id @default(autoincrement())
+  id        String       @id @default(cuid())
   email     String    @unique
   firstName String
   lastName  String?
   profileImageURL String?
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+  tweets Tweet[]
 }
+
+model Tweet {
+   id String @id @default(cuid())
+   content String
+   ImageURL String?
+   authorId String
+   author User @relation(fields: [authorId], references: [id])
+   createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+

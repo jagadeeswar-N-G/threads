@@ -16,6 +16,11 @@ export type Scalars = {
   Float: { input: number; output: number; }
 };
 
+export type CreateTweet = {
+  content: Scalars['String']['input'];
+  imageURL?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type VerifyGoogleTokenQueryVariables = Exact<{
   token: Scalars['String']['input'];
 }>;

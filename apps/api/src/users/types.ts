@@ -4,5 +4,6 @@ export const types = `#graphql
       firstName: String!
       lastName: String
       profileImageURL: String!
+      tweets: [Tweet]
    }
 `;

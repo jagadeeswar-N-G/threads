@@ -10,7 +10,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/src/components/ui/avatar"
 import { CalendarIcon, MapPinIcon, LinkIcon } from "lucide-react"
 
 export default function TwitterProfileCard() {
-  // Mock user data - in a real app, this would come from your auth state or API
   const user = {
     name: "Jane Doe",
     username: "janedoe",

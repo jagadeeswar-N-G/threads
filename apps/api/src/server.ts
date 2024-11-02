@@ -21,6 +21,7 @@ export async function createApolloServer(): Promise<express.Express> {
        ${Tweet.types}
        type Query {
          ${User.queries}
+         ${Tweet.queries}
        }
        type Mutation {
         ${Tweet.mutations}
@@ -29,10 +30,13 @@ export async function createApolloServer(): Promise<express.Express> {
     resolvers: {
       Query: {
         ...User.resolvers.queries,
+        ...Tweet.resolvers.queries
       },
       Mutation: {
         ...Tweet.resolvers.mutations,
-      }
+      },
+      ...Tweet.resolvers.userResolver,
+      ...User.resolvers.tweetResolver
     },
   });
   await server.start();

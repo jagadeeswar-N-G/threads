@@ -13,10 +13,13 @@ import {
 } from "@/src/components/ui/avatar";
 import { Button } from "@/src/components/ui/button";
 import { cn } from "@/src/lib/utils";
+import { CreateTweet, GetAllTweetsQuery } from "@/src/gql/graphql";
+import { useGetAllTweets } from "@/src/hooks/tweet";
+import { log } from "console";
 
-const tweets = [
+const tweetss = [
   {
-    username: "elonmusk",
+    firstName: "elonmusk",
     handle: "@elonmusk",
     content:
       "To be clear, I'm spending <5% (but actually) of my time on the Twitter acquisition. It ain't rocket science!",
@@ -26,7 +29,7 @@ const tweets = [
     replies: 21000,
   },
   {
-    username: "BillGates",
+    firstName: "BillGates",
     handle: "@BillGates",
     content:
       "Everybody asks, how is the next Windows coming along? But nobody asks how is Bill? 😔",
@@ -37,9 +40,15 @@ const tweets = [
   },
 ];
 
+interface FeedCardProps {
+  data: GetAllTweetsQuery
+}
 type CardProps = React.ComponentProps<typeof Card>;
 
 export function FeedCard({ className, ...props }: CardProps) {
+const {tweets=[]} = useGetAllTweets()
+  console.log(tweets);
+  
   return (
     <Card className={cn("w-[400px]", className)} {...props}>
       <CardHeader>
@@ -49,27 +58,27 @@ export function FeedCard({ className, ...props }: CardProps) {
         {tweets.map((tweet, index) => (
           <div key={index} className="flex space-x-4">
             <Avatar>
-              <AvatarImage src={tweet.avatar} alt={tweet.username} />
-              <AvatarFallback>{tweet.username[0]}</AvatarFallback>
+              <AvatarImage src={tweet.author.profileImageURL} alt={tweet.author.firstName} />
+              <AvatarFallback>{tweet.author.firstName[0]}</AvatarFallback>
             </Avatar>
             <div className="flex-1 space-y-1">
               <div className="flex items-center space-x-2">
-                <p className="text-sm font-semibold">{tweet.username}</p>
-                <p className="text-sm text-muted-foreground">{tweet.handle}</p>
+                <p className="text-sm font-semibold">{tweet.author.firstName}</p>
+                <p className="text-sm text-muted-foreground">@{tweet.author.firstName}</p>
               </div>
               <p className="text-sm">{tweet.content}</p>
               <div className="flex space-x-4 text-sm text-muted-foreground">
                 <Button variant="ghost" size="sm" className="px-0">
                   <MessageCircle className="mr-1 h-4 w-4" />
-                  {tweet.replies.toLocaleString()}
+                  {33}
                 </Button>
                 <Button variant="ghost" size="sm" className="px-0">
                   <Repeat2 className="mr-1 h-4 w-4" />
-                  {tweet.retweets.toLocaleString()}
+                  {99}
                 </Button>
                 <Button variant="ghost" size="sm" className="px-0">
                   <Heart className="mr-1 h-4 w-4" />
-                  {tweet.likes.toLocaleString()}
+                  {1000}
                 </Button>
                 <Button variant="ghost" size="sm" className="px-0">
                   <Share className="h-4 w-4" />

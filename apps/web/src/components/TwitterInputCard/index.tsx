@@ -6,11 +6,13 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/src/components/ui/avatar"
 import { Textarea } from "@/src/components/ui/textarea"
 import { ImageIcon, SmileIcon } from "lucide-react"
 import { useCurrentUser } from "@/src/hooks/user"
+import { useCreateTweet  } from "@/src/hooks/tweet"
 
 const MAX_TWEET_LENGTH = 280
 
 export default function TwitterInputCard() {
   const [tweetContent, setTweetContent] = useState("")
+  const {mutate } = useCreateTweet()
 
   const handleTweetChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTweetContent(event.target.value)
@@ -26,8 +28,11 @@ export default function TwitterInputCard() {
   const handleTweetSubmit = () => {
     if (tweetContent.trim() && tweetContent.length <= MAX_TWEET_LENGTH) {
       console.log("Tweet submitted:", tweetContent)
-      // Here you would typically send the tweet to your backend
-      setTweetContent("") // Clear the input after submitting
+      mutate({
+        content: tweetContent,
+        imageURL: undefined
+      })
+      setTweetContent("") 
     }
   }
 

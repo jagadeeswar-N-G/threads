@@ -22,7 +22,7 @@ const mutations = {
     const tweet = await prisma.tweet.create({
       data: {
         content: payload.content,
-        ImageURL: payload.imageURL,
+        imageURL: payload.imageURL,
         author: {
           connect: {
             id: context?.user?.id,

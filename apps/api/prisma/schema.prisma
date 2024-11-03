@@ -27,7 +27,7 @@ model User {
 model Tweet {
    id String @id @default(cuid())
    content String
-   ImageURL String?
+   imageURL String?
    authorId String
    author User @relation(fields: [authorId], references: [id])
    createdAt DateTime  @default(now())

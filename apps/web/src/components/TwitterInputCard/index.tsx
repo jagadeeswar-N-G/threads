@@ -27,7 +27,6 @@ export default function TwitterInputCard() {
 
   const handleTweetSubmit = () => {
     if (tweetContent.trim() && tweetContent.length <= MAX_TWEET_LENGTH) {
-      console.log("Tweet submitted:", tweetContent)
       mutate({
         content: tweetContent,
         imageURL: undefined

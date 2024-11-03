@@ -45,35 +45,26 @@ interface CreateTweetData {
   imageURL?: string;
 }
 
-
 export const useCreateTweet = () => {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: async (payload: CreateTweetData) => {
       try {
-        console.log('Mutation payload:', payload);
-        
-        const response = await graphQLClient.request(
-          createTweetMutation,
-          {
-            payload: {
-              content: payload.content,
-              imageURL: payload.imageURL
-            }
-          }
-        );
-        
-        console.log('Mutation response:', response);
+        const response = await graphQLClient.request(createTweetMutation, {
+          payload: {
+            content: payload.content,
+            imageURL: payload.imageURL,
+          },
+        });
         return response.createTweet;
       } catch (error) {
-        console.error('Mutation error:', error);
+        console.error("Mutation error:", error);
         throw error;
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['all-tweets'] });
-    }
+      queryClient.invalidateQueries({ queryKey: ["all-tweets"] });
+    },
   });
 };
-

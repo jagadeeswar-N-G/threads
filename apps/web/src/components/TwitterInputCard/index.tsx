@@ -42,7 +42,7 @@ export default function TwitterInputCard() {
     return null;
   }
   return (
-    <Card className="w-full max-w-[600px]">
+    <Card className="w-full rounded-none bg-inherit">
       <CardContent className="p-4">
         <div className="flex space-x-4">
         <Avatar className="w-8 h-8">
@@ -54,7 +54,7 @@ export default function TwitterInputCard() {
               placeholder="What's happening?"
               value={tweetContent}
               onChange={handleTweetChange}
-              className="w-full min-h-[100px] bg-white text-lg border-none resize-none focus:ring-0"
+              className="w-full min-h-[100px] text-lg border-none resize-none focus:ring-0"
             />
           </div>
         </div>

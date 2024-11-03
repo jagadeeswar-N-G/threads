@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <Layout>
       <TwitterInputCard />
-      <FeedCard className="m-6" />
+      <FeedCard />
     </Layout>
   );
 }

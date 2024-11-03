@@ -50,7 +50,7 @@ const {tweets=[]} = useGetAllTweets()
   console.log(tweets);
   
   return (
-    <Card className={cn("w-[400px]", className)} {...props}>
+    <Card className={cn("rounded-none bg-inherit text-cyan-50",className)} {...props}>
       <CardHeader>
         <CardTitle>Twitter Feed</CardTitle>
       </CardHeader>

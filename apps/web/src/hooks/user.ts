@@ -8,6 +8,11 @@ interface CurrentUser {
     firstName: string;
     lastName: string;
     profileImageURL?: string;
+    tweets:[{
+      content: string;
+      imageURL?:string
+
+    }]
   }
   
   export interface QueryResponse {

@@ -1,4 +1,5 @@
 import Layout from '@/src/components/Layout/Layout';
+import TwitterProfile from '@/src/components/TwitterProfile';
 import { useRouter } from 'next/router';
 
 const ProfilePage = () => {
@@ -7,10 +8,7 @@ const ProfilePage = () => {
 
   return (
     <Layout>
-    <div className="p-4">
-      <h1 className="text-2xl font-bold">Profile Page</h1>
-      <p className="mt-2">Profile ID: {id}</p>
-    </div>
+    <TwitterProfile/>
     </Layout>
   );
 };

@@ -34,11 +34,6 @@ const threadsSidebarButtons = [
     href: "/messages",
   },
   {
-    icon: <BsFillBookmarkFill className="w-6 h-6" />,
-    label: "Bookmarks",
-    href: "/bookmarks",
-  },
-  {
     icon: <BsFillPeopleFill className="w-6 h-6" />,
     label: "Lists",
     href: "/lists",
@@ -48,11 +43,6 @@ const threadsSidebarButtons = [
     icon: <MdOutlinePersonAddAlt className="w-6 h-6" />,
     label: "Communities",
     href: "/communities",
-  },
-  {
-    icon: <BsThreadsFill className="w-6 h-6" />,
-    label: "Premium",
-    href: "/premium",
   },
   {
     icon: <BsPersonCircle className="w-6 h-6" />,
@@ -82,7 +72,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         <section>
           <Button className="bg-blue-500">Tweet</Button>
         </section>
-        {!user && <SidebarProfile />}
+        {user && <SidebarProfile />}
       </div>
 
       <div className="flex-grow flex flex-col h-screen">

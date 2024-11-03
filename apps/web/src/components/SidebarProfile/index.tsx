@@ -1,7 +1,11 @@
-import * as React from "react"
-import { Button } from "@/src/components/ui/button"
-import { Card, CardContent } from "@/src/components/ui/card"
-import { Avatar, AvatarFallback, AvatarImage } from "@/src/components/ui/avatar"
+import * as React from "react";
+import { Button } from "@/src/components/ui/button";
+import { Card, CardContent } from "@/src/components/ui/card";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/src/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,15 +13,12 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/src/components/ui/dropdown-menu"
-import { MoreHorizontal, Settings, LogOut } from "lucide-react"
-import { useCurrentUser } from "@/src/hooks/user"
+} from "@/src/components/ui/dropdown-menu";
+import { MoreHorizontal, Settings, LogOut } from "lucide-react";
+import { useCurrentUser } from "@/src/hooks/user";
 
 export default function SidebarProfile() {
-  // Mock user data - in a real app, this would come from your auth state or API
   const { user } = useCurrentUser();
-
- 
 
   return (
     <Card className="w-full max-w-[300px]">
@@ -30,7 +31,9 @@ export default function SidebarProfile() {
             </Avatar>
             <div>
               <h2 className="text-sm font-semibold">{user?.firstName}</h2>
-              <p className="text-xs text-muted-foreground">@{user?.firstName}</p>
+              <p className="text-xs text-muted-foreground">
+                @{user?.firstName}
+              </p>
             </div>
           </div>
           <DropdownMenu>
@@ -56,7 +59,8 @@ export default function SidebarProfile() {
         </div>
         <div className="mt-4 flex justify-between text-sm text-muted-foreground">
           <div>
-            <span className="font-medium text-foreground">{2000}</span> Followers
+            <span className="font-medium text-foreground">{2000}</span>{" "}
+            Followers
           </div>
           <div>
             <span className="font-medium text-foreground">{199}</span> Following
@@ -64,5 +68,5 @@ export default function SidebarProfile() {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

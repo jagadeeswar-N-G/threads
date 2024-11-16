@@ -23,7 +23,7 @@ const queries = {
     if(!context.user) {
       throw new Error("User not authenticated");
     }
-    const allowedImageTypes = ["png", "jpg", "jpeg", "webp"];
+    const allowedImageTypes = ["image/png", "image/jpg", "image/jpeg", "image/webp"];
     if(!allowedImageTypes.includes(ImageType)) {
       throw new Error("Invalid Image Type");
     }

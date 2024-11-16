@@ -13,8 +13,10 @@ import {
 import { Button } from "@/src/components/ui/button";
 import { cn } from "@/src/lib/utils";
 import { useGetAllTweets } from "@/src/hooks/tweet";
+import Image from "next/image"; 
 
 type CardProps = React.ComponentProps<typeof Card>;
+
 
 export function FeedCard({ className, ...props }: CardProps) {
   const { tweets = [] } = useGetAllTweets();
@@ -46,6 +48,15 @@ export function FeedCard({ className, ...props }: CardProps) {
                 </p>
               </div>
               <p className="text-sm">{tweet.content}</p>
+              {tweet.imageURL && (
+                <Image
+                  src={tweet.imageURL}
+                  alt="Uploaded Image"
+                  className="w-full h-auto rounded-md"
+                  width={64}
+                  height={64}
+                />
+              )}
               <div className="flex space-x-4 text-sm text-muted-foreground">
                 <Button variant="ghost" size="sm" className="px-0">
                   <MessageCircle className="mr-1 h-4 w-4" />

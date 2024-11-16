@@ -1,4 +1,5 @@
 import { graphql } from "@/src/gql";
+import { gql } from "graphql-request";
 
 export const getAllTweetsQuery = graphql(`
   #graphql
@@ -15,3 +16,9 @@ export const getAllTweetsQuery = graphql(`
     }
   }
 `);
+
+export const getSignedURLForTweetQuery = gql`
+  query GetSignedURL($imageType: String!) {
+    getSignedURLForTweet(ImageType: $imageType)
+  }
+`;

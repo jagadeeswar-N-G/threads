@@ -9,7 +9,7 @@ const queryClient = new QueryClient();
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
-      <GoogleOAuthProvider clientId="158100995459-ogf0nvqn6r1sag1rh7eu08mvge80r5s0.apps.googleusercontent.com">
+      <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!}>
         <Component {...pageProps} />
         <Toaster />
         <ReactQueryDevtools initialIsOpen={false} />
